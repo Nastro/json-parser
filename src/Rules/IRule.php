@@ -12,7 +12,6 @@ interface IRule
 	 */
 	public function parse(array $item);
 
-
 	/**
 	 * @param Config $config
 	 */

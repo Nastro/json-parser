@@ -1,2 +1,10 @@
+/.idea
+/.vscode
+
 /vendor
 index.php
+
+._*
+.DS_Store
+.php_cs.cache
+.phpunit.result.cache

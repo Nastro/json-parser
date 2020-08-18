@@ -4,15 +4,31 @@
     "authors": [
         {
             "name": "Yury Bushenko",
-            "email": "yury.bushenko@dalee.ru"
+            "email": "duba@list.ru"
         }
     ],
-    "require": {},
+    "config": {
+		"secure-http": false,
+		"platform": {
+			"php": "7.2"
+		}
+	},
+	"require": {
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "scripts": {
+		"test": "phpunit"
+	},
     "autoload": {
 		"psr-4": {
 			"JsonParser\\": [
 				"src/"
 			]
-		}
+		},
+		"Tests\\": [
+			"tests/"
+		]
 	}
 }

@@ -31,6 +31,21 @@ class JsonParser
 		$this->config = $config;
 	}
 
+	/**
+	 * @param string $json
+	 * @return JsonParser
+	 */
+	public function setJson($json)
+	{
+		$this->parseJson($json);
+
+		return $this;
+	}
+
+	/**
+	 * @param string $path
+	 * @return string
+	 */
 	private function loadFile($path)
 	{
 		if (!is_file($path)) {
@@ -38,15 +53,24 @@ class JsonParser
 		}
 
 		$content = file_get_contents($path);
-		$json = json_decode($content, true);
+
+		return $content;
+	}
+
+	/**
+	 * @param string $json
+	 * @return bool
+	 */
+	private function parseJson($json)
+	{
+		$json = json_decode($json, true);
 		if (!$json) {
 			throw new InvalidJsonFormatException(sprintf('Проблема с форматом json: %s', $path));
-
 		}
 
 		$basePath = $this->config->getBasePath();
 		if ($basePath) {
-			$json = $json[$basePath] ?? '';
+			$json = Support::getFromArray($json, $basePath);
 		}
 
 		if (!$json) {
@@ -64,7 +88,8 @@ class JsonParser
 	public function parse()
 	{
 		if (!$this->json) {
-			$this->loadFile($this->path);
+			$json = $this->loadFile($this->path);
+			$this->parseJson($json);
 		}
 
 		foreach ($this->json as $item) {
@@ -88,38 +113,5 @@ class JsonParser
 
 		return $result;
 	}
-
-	// /**
-	//  * @param callable $func
-	//  * @param array $from
-	//  * @return mixed
-	//  */
-	// private function parseCallableValue(callable $func, array $from)
-	// {
-	// 	return $func($from);
-	// }
-
-	// /**
-	//  * @param string $path
-	//  * @param array $from
-	//  * @return mixed
-	//  */ 
-	// private function parseStringValue(string $path, array $from)
-	// {
-	// 	$paths = explode('.', $path);
-	// 	$currentFrom = $from;
-
-	// 	foreach ($paths as $pathChunk) {
-	// 		if (!isset($currentFrom[$pathChunk]) && $this->config->getIgnoreErrors()) {
-	// 			continue;
-	// 		} elseif (!isset($currentFrom[$pathChunk])) {
-	// 			throw new InvalidPathNodeException(sprintf('Нода %s не существует', $path));
-	// 		}
-
-	// 		$currentFrom = $currentFrom[$pathChunk];
-	// 	}
-
-	// 	return $currentFrom;
-	// }
 
 }

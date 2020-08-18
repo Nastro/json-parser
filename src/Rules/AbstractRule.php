@@ -14,10 +14,4 @@ abstract class AbstractRule implements IRule
 		$this->config = $config;
 		return $this;
 	}
-
-	public function create(...$args)
-	{
-		return new static(...$args);
-	}
-
 }
