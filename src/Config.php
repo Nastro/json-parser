@@ -12,8 +12,11 @@ class Config
 	/** @var bool */
 	private $ignoreErrors = false;
 
-	/** @var array */
+	/** @var IRule[] */
 	private $rules = [];
+
+	/** @var array */
+	private $dictionaries = [];
 
 	/**
 	 * @param IRule[] $rules
@@ -21,6 +24,26 @@ class Config
 	public function __construct(array $rules)
 	{
 		$this->rules = $rules;
+	}
+
+	/**
+	 * @param string $name
+	 * @param Dictionary $dictionary
+	 * @return Config
+	 */
+	public function addDictionary(string $name, Dictionary $dictionary)
+	{
+		$this->dictionaries[$name] = $dictionary;
+		return $this;
+	}
+
+	/**
+	 * @param strign $name
+	 * @return array
+	 */
+	public function getDictionary(string $name)
+	{
+		return $this->dictionaries[$name] ?? null;
 	}
 
 	/**

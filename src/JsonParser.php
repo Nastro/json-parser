@@ -15,11 +15,17 @@ class JsonParser
 	/** @var Config */
 	private $config;
 
-	/** @var string */
+	/** @var array */
 	private $json;
 
 	/** @var array */
+	private $originalJson;
+
+	/** @var array */
 	private $result = [];
+
+	/** @var array */
+	private $dictionaries = [];
 
 	/**
 	 * @param string $path
@@ -32,14 +38,60 @@ class JsonParser
 	}
 
 	/**
+	 * @param string $name
+	 * @param mixed $source
+	 * @return JsonParser
+	 */
+	public function addDictionary(string $name, $source)
+	{
+		$this->dictionaries[$name] = new Dictionary($name, $source, $this);
+		$this->config->addDictionary($name, $this->dictionaries[$name]);
+		return $this;
+	}
+
+	/**
+	 * @param strign $name
+	 * @return array
+	 */
+	public function getDictionary(string $name)
+	{
+		return $this->dictionaries[$name] ?? null;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getDictionaries()
+	{
+		return $this->dictionaries;
+	}
+
+
+	/**
 	 * @param string $json
 	 * @return JsonParser
 	 */
-	public function setJson($json)
+	public function setJson(string $json)
 	{
 		$this->parseJson($json);
 
 		return $this;
+	}
+
+	/**
+	 * @param array
+	 */
+	public function getJson()
+	{
+		return $this->json;
+	}
+
+	/**
+	 * @param array
+	 */
+	public function getOriginalJson()
+	{
+		return $this->originalJson;
 	}
 
 	/**
@@ -67,6 +119,8 @@ class JsonParser
 		if (!$json) {
 			throw new InvalidJsonFormatException(sprintf('Проблема с форматом json: %s', $path));
 		}
+
+		$this->originalJson = $json;
 
 		$basePath = $this->config->getBasePath();
 		if ($basePath) {
