@@ -25,10 +25,10 @@
 		"psr-4": {
 			"JsonParser\\": [
 				"src/"
+			],
+			"Tests\\": [
+				"tests/"
 			]
-		},
-		"Tests\\": [
-			"tests/"
-		]
+		}
 	}
 }
