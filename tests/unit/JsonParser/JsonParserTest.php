@@ -48,7 +48,8 @@ JSON;
 			->setBasePath('data.orders')
 			->setIgnoreErrors(true);
 
-		$parser = (new JsonParser('', $config))->setJson($this->data);
+		$path = __DIR__ . '/../../data/UserOrders.json';
+		$parser = new JsonParser($path, $config);
 
 		$this->assertEquals([
 			[
