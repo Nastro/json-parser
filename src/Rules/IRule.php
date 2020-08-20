@@ -14,6 +14,7 @@ interface IRule
 
 	/**
 	 * @param Config $config
+	 * @return IRule
 	 */
 	public function setConfig(Config $config): IRule;
 }
