@@ -3,6 +3,7 @@
 namespace JsonParser;
 
 use JsonParser\Rules\IRule;
+use JsonParser\Loader\ILoader;
 
 class Config
 {
@@ -17,6 +18,9 @@ class Config
 
 	/** @var array */
 	private $dictionaries = [];
+
+	/** @var ILoader */
+	private $loader;
 
 	/**
 	 * @param IRule[] $rules
@@ -98,6 +102,24 @@ class Config
 	public function getRules(): array
 	{
 		return $this->rules;
+	}
+
+	/**
+	 * @return ILoader
+	 */
+	public function getLoader(): ILoader
+	{
+		return $this->loader;
+	}
+
+	/**
+	 * @param ILoader $loader
+	 * @return Config
+	 */
+	public function setLoader(ILoader $loader): Config
+	{
+		$this->loader = $loader;
+		return $this;
 	}
 
 }

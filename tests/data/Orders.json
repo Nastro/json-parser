@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "name": "Телевизор LG 65UN73506LB",
+    "oldCost": 69990,
+    "cost": 59990,
+    "costPerMonth":  2937,
+    "bonus": 5999,
+    "specifications": {
+      "serial": "UN73",
+      "screen": {
+        "screen": "65\"/3840x2160 Пикс",
+        "hdr": "HDR10 Pro",
+        "frequency": "50 Гц"
+      },
+      "functional": {
+        "smartTv": true,
+        "wifi": true,
+        "hdr": true,
+        "sleep": true,
+        "time": true,
+        "hdmiArc": true
+      },
+      "tuner": {
+        "digitalTuner": "T/T2/C/C2/S/S2"
+      },
+      "interfaces": {
+        "hdmiCount": 3,
+        "hdmiVersion": "2",
+        "usb20ACount": 2,
+        "rcaVideoCount": 1,
+        "lanCount": 1
+      },
+      "powerSupply": {
+        "power": "195 Вт"
+      }
+    }
+  },  {
+    "id": 2,
+    "name": "Телевизор Samsung 65UN73506LB",
+    "oldCost": 79990,
+    "cost": 69990,
+    "costPerMonth":  3037,
+    "bonus": 6999,
+    "specifications": {
+      "serial": "HZ7312UC",
+      "screen": {
+        "screen": "65\"/3840x2160 Пикс",
+        "hdr": "HDR10 Pro",
+        "frequency": "70 Гц"
+      },
+      "functional": {
+        "smartTv": true,
+        "wifi": true,
+        "hdr": true,
+        "sleep": true,
+        "time": true,
+        "hdmiArc": true
+      },
+      "tuner": {
+        "digitalTuner": "T/T2/C/C2/S/S2"
+      },
+      "interfaces": {
+        "hdmiCount": 3,
+        "hdmiVersion": "2",
+        "usb20ACount": 2,
+        "rcaVideoCount": 1,
+        "lanCount": 1
+      },
+      "powerSupply": {
+        "power": "195 Вт"
+      }
+    }
+  }
+]

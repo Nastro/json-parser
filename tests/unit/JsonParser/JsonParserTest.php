@@ -2,6 +2,7 @@
 
 namespace Tests\unit\JsonParser;
 
+use JsonParser\Loader\TextLoader;
 use PHPUnit\Framework\TestCase;
 use JsonParser\JsonParser;
 use JsonParser\Config;
@@ -46,10 +47,10 @@ JSON;
 
 		$config = (new Config($rules))
 			->setBasePath('data.orders')
+			->setLoader(new TextLoader($this->data))
 			->setIgnoreErrors(true);
 
-		$path = __DIR__ . '/../../data/UserOrders.json';
-		$parser = new JsonParser($path, $config);
+		$parser = new JsonParser($config);
 
 		$this->assertEquals([
 			[

@@ -9,9 +9,6 @@ use JsonParser\Exceptions\UnknownTypeNodeException;
 
 class JsonParser
 {
-	/** @var string */
-	private $path;
-
 	/** @var Config */
 	private $config;
 
@@ -28,12 +25,10 @@ class JsonParser
 	private $dictionaries = [];
 
 	/**
-	 * @param string $path
-	 * @param array $config
+	 * @param Config $config
 	 */
-	function __construct($path, Config $config)
+	function __construct(Config $config)
 	{
-		$this->path = $path;
 		$this->config = $config;
 	}
 
@@ -50,7 +45,7 @@ class JsonParser
 	}
 
 	/**
-	 * @param strign $name
+	 * @param string $name
 	 * @return array
 	 */
 	public function getDictionary(string $name)
@@ -70,6 +65,8 @@ class JsonParser
 	/**
 	 * @param string $json
 	 * @return JsonParser
+	 * @throws InvalidJsonFormatException
+	 * @throws InvalidPathNodeException
 	 */
 	public function setJson(string $json)
 	{
@@ -79,7 +76,7 @@ class JsonParser
 	}
 
 	/**
-	 * @param array
+	 * @return array
 	 */
 	public function getJson()
 	{
@@ -87,7 +84,7 @@ class JsonParser
 	}
 
 	/**
-	 * @param array
+	 * @return array
 	 */
 	public function getOriginalJson()
 	{
@@ -95,29 +92,16 @@ class JsonParser
 	}
 
 	/**
-	 * @param string $path
-	 * @return string
-	 */
-	private function loadFile($path)
-	{
-		if (!is_file($path)) {
-			throw new InvalidPathFileException(sprintf('Файл %s не существует', $path));
-		}
-
-		$content = file_get_contents($path);
-
-		return $content;
-	}
-
-	/**
 	 * @param string $json
 	 * @return bool
+	 * @throws InvalidJsonFormatException
+	 * @throws InvalidPathNodeException
 	 */
 	private function parseJson($json)
 	{
 		$json = json_decode($json, true);
 		if (!$json) {
-			throw new InvalidJsonFormatException(sprintf('Проблема с форматом json: %s', $path));
+			throw new InvalidJsonFormatException('Проблема с форматом json');
 		}
 
 		$this->originalJson = $json;
@@ -138,11 +122,13 @@ class JsonParser
 
 	/**
 	 * @return array
+	 * @throws InvalidJsonFormatException
+	 * @throws InvalidPathNodeException
 	 */
 	public function parse()
 	{
 		if (!$this->json) {
-			$json = $this->loadFile($this->path);
+			$json = $this->config->getLoader()->load();
 			$this->parseJson($json);
 		}
 
