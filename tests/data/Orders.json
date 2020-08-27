@@ -6,6 +6,7 @@
     "cost": 59990,
     "costPerMonth":  2937,
     "bonus": 5999,
+    "category": 1,
     "specifications": {
       "serial": "UN73",
       "screen": {
@@ -42,15 +43,16 @@
     "cost": 69990,
     "costPerMonth":  3037,
     "bonus": 6999,
+    "category": 2,
     "specifications": {
       "serial": "HZ7312UC",
       "screen": {
-        "screen": "65\"/3840x2160 Пикс",
+        "screen": "55\"/3840x2160 Пикс",
         "hdr": "HDR10 Pro",
         "frequency": "70 Гц"
       },
       "functional": {
-        "smartTv": true,
+        "smartTv": false,
         "wifi": true,
         "hdr": true,
         "sleep": true,
