@@ -1,4 +1,7 @@
 # Json-parser
+
+![PHP Composer](https://github.com/Nastro/json-parser/workflows/PHP%20Composer/badge.svg?branch=master)
+
 Json-parser - это универсальный парсер, который с помощью определенных правил, переводит json в массив PHP,
 при этом в качестве источника данных может использоваться файл, текст или url.
 
