@@ -9,7 +9,7 @@ class SupportTest extends TestCase
 {
 	public function testGetFromArraySuccess()
 	{
-		$data = ['root' => ['child' => 'test1']];
+		$data = ['root' => ['child' => 'test']];
 		$value = Support::getFromArray($data, 'root.child');
 		$this->assertSame('test', $value);
 	}
