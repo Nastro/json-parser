@@ -12,22 +12,79 @@ use JsonParser\Config;
 use JsonParser\JsonParser;
 use JsonParser\Rules\CallableRule;
 use JsonParser\Rules\DotPathRule;
-use JsonParser\Loader\FileLoader;
+use JsonParser\Loader\TextLoader;
+
+$json = <<<JSON
+    {
+        "data": {
+            "general": {
+                "id": 12,
+                "category": "Eat",
+                "url": "/goods/category/eat"
+            },
+            "goods": [
+                {
+                    "id":1,
+                    "names": {
+                        "ru_name":"Печенье",
+                        "en_name":"Cookie"
+                    },
+                    "cost":12.5
+                },{
+                    "id":2,
+                    "names": {
+                        "ru_name":"Молоко",
+                        "en_name":"Milk"
+                    },
+                    "cost":17
+                },{
+                    "id":3,
+                    "names": {
+                        "ru_name":"Яблоко",
+                        "en_name":"Apple"
+                    },
+                    "cost":19
+                }
+            ]
+        }
+    }
+JSON;
 
 $rules = [
-    'title_ru' => new DotPathRule('general.info.ru_title'),
-    'title_en' => new DotPathRule('general.info.en_title'),
+    'ru_name' => new DotPathRule('names.ru_name'),
+    'en_name' => new DotPathRule('names.en_name'),
     'search_index' => new CallableRule(function ($item) {
-        return $item['general']['info']['ru_title'].$item['general']['info']['en_title'];
+        return $item['names']['ru_name'].$item['names']['en_name'];
     })
 ];
 
 $config = (new Config($rules))
-    ->setLoader(new FileLoader(__DIR__ . '/data/goods.json'))
-    ->setBasePath('goods.items')
+    ->setLoader(new TextLoader($json))
+    ->setBasePath('data.goods')
     ->setIgnoreErrors(true);
 
-$data = (new JsonParser($config))->parse();
+$result = (new JsonParser($config))->parse();
+var_dump($result);
+```
+Результат:
+```
+array(3) {
+  [0] => array(3) {
+    'ru_name' => string(14) "Печенье"
+    'en_name' => string(6) "Cookie"
+    'search_index' => string(20) "ПеченьеCookie"
+  }
+  [1] => array(3) {
+    'ru_name' => string(12) "Молоко"
+    'en_name' => string(4) "Milk"
+    'search_index' => string(16) "МолокоMilk"
+  }
+  [2] => array(3) {
+    'ru_name' => string(12) "Яблоко"
+    'en_name' => string(5) "Apple"
+    'search_index' => string(17) "ЯблокоApple"
+  }
+}
 ```
 
 ### Установка
