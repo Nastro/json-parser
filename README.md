@@ -1,6 +1,6 @@
 # Json-parser
 
-![Test](https://github.com/Nastro/json-parser/workflows/Test/badge.svg?branch=master)
+![build](https://github.com/Nastro/json-parser/workflows/build/badge.svg)
 [![codecov](https://codecov.io/gh/Nastro/json-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Nastro/json-parser)
 
 Json-parser - это универсальный парсер, который с помощью определенных правил, переводит json в массив PHP,

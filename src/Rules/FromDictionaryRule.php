@@ -2,9 +2,8 @@
 
 namespace JsonParser\Rules;
 
-use JsonParser\Exceptions\InvalidPathNodeException;
 use JsonParser\Support;
-use Exception;
+use JsonParser\Exceptions\UnknownDictionaryException;
 
 class FromDictionaryRule extends AbstractRule
 {
@@ -35,7 +34,7 @@ class FromDictionaryRule extends AbstractRule
 		$dictionary = $this->config->getDictionary($this->dictionaryName);
 
 		if (!$dictionary) {
-			throw new Exception(sprintf('Справочник %s не существует', $this->dictionaryName));
+			throw new UnknownDictionaryException(sprintf('Справочник %s не существует', $this->dictionaryName));
 		}
 
 		$index = Support::getFromArray($item, $this->path);

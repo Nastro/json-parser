@@ -2,6 +2,7 @@
 
 namespace Tests\unit\JsonParser\Rules;
 
+use JsonParser\Exceptions\UnknownDictionaryException;
 use JsonParser\Loader\FileLoader;
 use JsonParser\Rules\FromDictionaryRule;
 use PHPUnit\Framework\TestCase;
@@ -83,6 +84,27 @@ class FromDictionaryRuleTest extends TestCase
 				'category' => 'Какая-то категория 2'
 			]
 		], $parser->parse());
+	}
+
+
+	public function testDictionaryNotFound()
+	{
+		$rules = [
+			'category' => new FromDictionaryRule('notfound', 'category', function ($value) {
+				return str_replace('Тестовая', 'Какая-то', $value);
+			}),
+		];
+
+		$config = (new Config($rules))
+			->setLoader(new FileLoader(__DIR__ . '/../../../data/Orders.json'))
+			->setIgnoreErrors(true);
+
+		$parser = new JsonParser($config);
+
+		$this->expectExceptionMessage('Справочник notfound не существует');
+		$this->expectException(UnknownDictionaryException::class);
+
+		$parser->parse();
 	}
 
 }

@@ -20,13 +20,14 @@ class DotPathRule extends AbstractRule
 
 	/**
 	 * {@inheritdoc}
+	 * @throws InvalidPathNodeException
 	 */
 	public function parse(array $item)
 	{
 		$value = Support::getFromArray($item, $this->path);
 
 		if (!$value && !$this->config->getIgnoreErrors()) {
-			throw new InvalidPathNodeException(sprintf('Нода %s не существует', $path));
+			throw new InvalidPathNodeException(sprintf('Нода %s не существует', $this->path));
 		}
 
 		return $value;
