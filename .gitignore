@@ -2,6 +2,7 @@
 /.vscode
 
 /vendor
+/.build
 index.php
 
 ._*
