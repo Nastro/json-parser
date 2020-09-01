@@ -1,6 +1,6 @@
 # Json-parser
 
-![PHP Composer](https://github.com/Nastro/json-parser/workflows/PHP%20Composer/badge.svg?branch=master)
+![Test](https://github.com/Nastro/json-parser/workflows/Test/badge.svg?branch=master)
 
 Json-parser - это универсальный парсер, который с помощью определенных правил, переводит json в массив PHP,
 при этом в качестве источника данных может использоваться файл, текст или url.
@@ -23,7 +23,7 @@ $rules = [
 
 $config = (new Config($rules))
     ->setLoader(new FileLoader(__DIR__ . '/data/goods.json'))
-    ->setBasePath('goods')
+    ->setBasePath('goods.items')
     ->setIgnoreErrors(true);
 
 $data = (new JsonParser($config))->parse();
@@ -34,20 +34,20 @@ $data = (new JsonParser($config))->parse();
 
 ### Источник данных (Loader)
 #### Текст (TextLoader)
-Для использования текстового источника данных, достаточно в конструктор TextLoader передать json в виде текста:
+Для использования текстового источника данных, достаточно в конструктор `TextLoader` передать json в виде текста:
 ```php
 $loader = new JsonParser\Loader\TextLoader('[{"name": "a", "text": "foo"}, {"name": "b", "text": "bar"}]');
 ```
 
 #### Файл (FileLoader)
-Для того, чтобы загрузка json происходила из файла, нужно передать в конструктор FileLoader абсолютный путь до файла:
+Для того, чтобы загрузка json происходила из файла, нужно передать в конструктор `FileLoader` абсолютный путь до файла:
 ```php
 $loader = new JsonParser\Loader\FileLoader(__DIR__ . '/data/goods.json');
 ```
 
 #### Url (UrlLoader)
-Также возможно загружать json по url, для этого нужно использовать UrlLoader.
-Вторым аргументом можно передать клиент для http запросов совместимый с GuzzleHttp\ClientInterface
+Также возможно загружать json по url, для этого нужно использовать `UrlLoader`.
+Вторым аргументом можно передать клиент для http запросов совместимый с `GuzzleHttp\ClientInterface`
 ```php
 $loader = new JsonParser\Loader\UrlLoader('http://url');
 ```
@@ -70,7 +70,7 @@ $rule = new \JsonParser\Rules\ArrayRule('path.to.nodes', ['node1', 'node2', 'nod
 ```
 
 #### Кастомная обработка (CallableRule)
-Для собственной обработки значения можно использовать CallableRule. Правило принимает анонимную функцию,
+Для собственной обработки значения можно использовать `CallableRule`. Правило принимает анонимную функцию,
 и в качестве входного аргумента передаст объект целиком, чтобы пользователь смог обработать значение сам.
 ```php
 $rule = new \JsonParser\Rules\CallableRule(function ($item) { return $item['node']; });
@@ -82,7 +82,7 @@ $rule = new \JsonParser\Rules\CallableRule(function ($item) { return $item['node
 $parser = new \JsonParser\JsonParser($config);
 $parser->addDictionary('name', [1 => 'foo', 2 => 'bar']);
 ```
-Первым аргументом метода addDictionary выступает имя словаря, которое потребуется в будущем,
+Первым аргументом метода `addDictionary` выступает имя словаря, которое потребуется в будущем,
 вторым аргументом может быть либо массив(как в примере выше), либо строка с путем через точку
 до массива данных в самом json. Например:
 ```php
@@ -97,7 +97,7 @@ $parser->addDictionary('name', 'path.to.categories');
 ```php
 $rule = new \JsonParser\Rules\FromDictionaryRule('name', 'path.to.node_id');
 ```
-Для начала парсер будет пытаться получить значение из path.to.node_id,
+Для начала парсер будет пытаться получить значение из `path.to.node_id`,
 а дальше сопоставит это значение со значением из словаря.
 Если такое значение в словаре будет найдено, то он заменит его.
 
@@ -113,13 +113,15 @@ $rule = new \JsonParser\Rules\FromDictionaryRule('name', 'path.to.node_id', func
 #### Игнорирование ошибок (setIgnoreErrors)
 Для проверки целостности данных, по умолчанию парсер будет выкидывать исключение
 если по заданному пути не была найдена нода.
-Для игнорирования таких ошибок следует использовать настройку setIgnoreErrors(true)
+Для игнорирования таких ошибок следует использовать настройку `setIgnoreErrors(true)`
 ```php
 $config->setIgnoreErrors(true);
 ```
 
 #### Базовый путь (setBasePath)
-Данная настройка позволяет задать путь до данных, которые следует парсить.
+По умолчанию парсер ожидает json с массивом в корневой ноде. Эту ноду можно
+изменить с помощью метода `setBasePath`. Данная настройка позволяет задать
+путь до данных, которые следует парсить.
 ```php
 $config->setBasePath('path.to.nodes');
 ```
