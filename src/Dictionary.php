@@ -2,7 +2,7 @@
 
 namespace JsonParser;
 
-use Exception;
+use JsonParser\Exceptions\UnknownDictionaryException;
 
 class Dictionary
 {
@@ -28,7 +28,7 @@ class Dictionary
 
 	/**
 	 * @return array
-	 * @throws Exception
+	 * @throws UnknownDictionaryException
 	 */
 	public function getList()
 	{
@@ -38,7 +38,7 @@ class Dictionary
 			case is_string($this->source):
 				return Support::getFromArray($this->parser->getOriginalJson(), $this->source, []);
 			default:
-				throw new Exception('Неизвестный тип справочника');
+				throw new UnknownDictionaryException('Неизвестный тип справочника');
 		}
 	}
 }

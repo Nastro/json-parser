@@ -46,9 +46,9 @@ class JsonParser
 
 	/**
 	 * @param string $name
-	 * @return array
+	 * @return Dictionary
 	 */
-	public function getDictionary(string $name)
+	public function getDictionary(string $name): Dictionary
 	{
 		return $this->dictionaries[$name] ?? null;
 	}

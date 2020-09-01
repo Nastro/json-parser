@@ -42,7 +42,7 @@ class Config
 	}
 
 	/**
-	 * @param strign $name
+	 * @param string $name
 	 * @return array
 	 */
 	public function getDictionary(string $name)
