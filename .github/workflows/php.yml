@@ -1,4 +1,4 @@
-name: Test
+name: Tests
 
 on:
   push:
@@ -32,3 +32,8 @@ jobs:
 
     - name: Run test suite
       run: make test
+
+    - name: "Send code coverage report to Codecov.io"
+        env:
+          CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
+        run: "bash <(curl -s https://codecov.io/bash)"
