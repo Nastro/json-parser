@@ -9,29 +9,40 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-latest"
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: "actions/checkout@v2"
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
+    - name: "Install PHP with extensions"
+      uses: "shivammathur/setup-php@v2"
       with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        coverage: "xdebug"
+        extensions: "intl"
+        ini-values: "memory_limit=-1"
+        php-version: "7.4"
+
+    - name: "Validate composer.json and composer.lock"
+      run: "composer validate"
+
+    - name: "Cache Composer packages"
+      id: "composer-cache"
+      uses: "actions/cache@v2"
+      with:
+        path: "vendor"
+        key: "${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}"
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: Install dependencies
-      if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
+    - name: "Install dependencies"
+      if: "steps.composer-cache.outputs.cache-hit != 'true'"
+      run: "composer install --no-interaction --no-progress --no-suggest"
 
-    - name: Run test suite
-      run: make test
+    - name: "Create build directory"
+      run: "mkdir -p .build/logs"
+
+    - name: "Collect code coverage with Xdebug and phpunit/phpunit"
+      run: "vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml"
 
     - name: "Send code coverage report to Codecov.io"
       env:
