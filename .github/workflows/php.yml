@@ -1,4 +1,4 @@
-name: Tests
+name: build
 
 on:
   push:
@@ -42,7 +42,7 @@ jobs:
       run: "mkdir -p .build/logs"
 
     - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-      run: "vendor/bin/phpunit --coverage-clover=.build/logs/clover.xml --whitelist=src/"
+      run: "vendor/bin/phpunit --coverage-clover=.build/logs/coverage.xml --whitelist=src/"
 
     - name: "Send code coverage report to Codecov.io"
       env:
