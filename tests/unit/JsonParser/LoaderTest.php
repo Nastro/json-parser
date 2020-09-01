@@ -7,6 +7,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JsonParser\Config;
+use JsonParser\Exceptions\InvalidPathFileException;
 use JsonParser\Exceptions\UnavailableUrlException;
 use JsonParser\JsonParser;
 use JsonParser\Loader\FileLoader;
@@ -27,6 +28,16 @@ class LoaderTest extends TestCase
 	public function testFileLoader()
 	{
 		$parser = $this->getParser(new FileLoader(__DIR__ . '/../../data/File.json'));
+		$this->assertEquals([['test' => 'foo']], $parser->parse());
+	}
+
+	public function testFileLoaderException()
+	{
+		$parser = $this->getParser(new FileLoader(__DIR__ . '/../../data/File1.json'));
+
+		$this->expectExceptionMessage(sprintf('Файл %s не существует', __DIR__ . '/../../data/File1.json'));
+		$this->expectException(InvalidPathFileException::class);
+
 		$this->assertEquals([['test' => 'foo']], $parser->parse());
 	}
 
