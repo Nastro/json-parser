@@ -1,5 +1,6 @@
 # Json-parser
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Nastro/json-parser)
 ![build](https://github.com/Nastro/json-parser/workflows/build/badge.svg)
 [![codecov](https://codecov.io/gh/Nastro/json-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/Nastro/json-parser)
 
