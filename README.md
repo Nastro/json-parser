@@ -88,7 +88,7 @@ array(3) {
 ```
 
 ### Установка
-`composer require ybushenko/json-parser:dev-master`
+`composer require ybushenko/json-parser`
 
 ### Источник данных (Loader)
 #### Текст (TextLoader)

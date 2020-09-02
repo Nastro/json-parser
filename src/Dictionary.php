@@ -18,6 +18,7 @@ class Dictionary
 	/**
 	 * @param string $name
 	 * @param mixed $source
+	 * @param JsonParser $parser
 	 */
 	public function __construct($name, $source, JsonParser $parser)
 	{
