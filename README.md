@@ -53,7 +53,7 @@ JSON;
 $rules = [
     'ru_name' => new DotPathRule('names.ru_name'),
     'en_name' => new DotPathRule('names.en_name'),
-    'search_index' => new CallableRule(function ($item) {
+    'custom' => new CallableRule(function ($item) {
         return $item['names']['ru_name'].$item['names']['en_name'];
     })
 ];
@@ -72,17 +72,17 @@ array(3) {
   [0] => array(3) {
     'ru_name' => string(14) "Печенье"
     'en_name' => string(6) "Cookie"
-    'search_index' => string(20) "ПеченьеCookie"
+    'custom' => string(20) "ПеченьеCookie"
   }
   [1] => array(3) {
     'ru_name' => string(12) "Молоко"
     'en_name' => string(4) "Milk"
-    'search_index' => string(16) "МолокоMilk"
+    'custom' => string(16) "МолокоMilk"
   }
   [2] => array(3) {
     'ru_name' => string(12) "Яблоко"
     'en_name' => string(5) "Apple"
-    'search_index' => string(17) "ЯблокоApple"
+    'custom' => string(17) "ЯблокоApple"
   }
 }
 ```
