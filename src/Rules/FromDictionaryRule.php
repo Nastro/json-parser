@@ -5,7 +5,8 @@ namespace JsonParser\Rules;
 use JsonParser\Support;
 use JsonParser\Exceptions\UnknownDictionaryException;
 
-class FromDictionaryRule extends AbstractRule{
+class FromDictionaryRule extends AbstractRule
+{
     /** @var string */
     private $dictionaryName;
 
