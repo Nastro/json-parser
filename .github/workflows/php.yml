@@ -41,8 +41,8 @@ jobs:
     - name: "Create build directory"
       run: "mkdir -p .build/logs"
 
-    - name: "Collect code coverage with Xdebug and phpunit/phpunit"
-      run: "vendor/bin/phpunit --coverage-clover=.build/logs/coverage.xml --whitelist=src/"
+    - name: "Codestyle and phpunit"
+      run: "make test"
 
     - name: "Send code coverage report to Codecov.io"
       env:
