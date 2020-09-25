@@ -7,29 +7,29 @@ use JsonParser\Support;
 
 class DotPathRule extends AbstractRule
 {
-	/** @var string */
-	private $path;
+    /** @var string */
+    private $path;
 
-	/**
-	 * @param string $path
-	 */
-	public function __construct(string $path)
-	{
-		$this->path = $path;
-	}
+    /**
+     * @param string $path
+     */
+    public function __construct(string $path)
+    {
+        $this->path = $path;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 * @throws InvalidPathNodeException
-	 */
-	public function parse(array $item)
-	{
-		$value = Support::getFromArray($item, $this->path);
+    /**
+     * {@inheritdoc}
+     * @throws InvalidPathNodeException
+     */
+    public function parse(array $item)
+    {
+        $value = Support::getFromArray($item, $this->path);
 
-		if (!$value && !$this->config->getIgnoreErrors()) {
-			throw new InvalidPathNodeException(sprintf('Нода %s не существует', $this->path));
-		}
+        if (!$value && !$this->config->getIgnoreErrors()) {
+            throw new InvalidPathNodeException(sprintf('Нода %s не существует', $this->path));
+        }
 
-		return $value;
-	}
+        return $value;
+    }
 }
